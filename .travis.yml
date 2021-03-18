@@ -2,23 +2,21 @@ sudo: required
 language: generic
 
 services:
-   - docker
+  - docker
 
-   before_install:
-    - docker build -t preedalakshmi/react-test -f ./client/Dockerfile.dev ./client
-
-    script:
+before_install:
+  - docker build -t preedalakshmi/react-test -f ./client/Dockerfile.dev ./client
+script:
      # - docker run -e CI=true preedalakshmi/react-test npm test -- --coverage
-      - docker run -e CI=true preedalakshmi/react-test npm test
-
-      after_success:
-        - docker build preedalakshmi/multi-client ./client
-        - docker build preedalakshmi/multi-ngnix ./ngnix
-        - docker build preedalakshmi/multi-server ./server
-        - docker build preedalakshmi/multi-worker ./worker
+  - docker run -e CI=true preedalakshmi/react-test npm test
+after_success:
+  - docker build preedalakshmi/multi-client ./client
+  - docker build preedalakshmi/multi-ngnix ./ngnix
+  - docker build preedalakshmi/multi-server ./server
+  - docker build preedalakshmi/multi-worker ./worker
         #login into docker CLI
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-        - docker push preedalakshmi/multi-client
-        - docker push preedalakshmi/multi-ngnix
-        - docker push preedalakshmi/multi-server
-        - docker push preedalakshmi/multi-worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push preedalakshmi/multi-client
+  - docker push preedalakshmi/multi-ngnix
+  - docker push preedalakshmi/multi-server
+  - docker push preedalakshmi/multi-worker
