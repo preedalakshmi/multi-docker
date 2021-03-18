@@ -10,10 +10,10 @@ script:
      # - docker run -e CI=true preedalakshmi/react-test npm test -- --coverage
   - docker run -e CI=true preedalakshmi/react-test npm test
 after_success:
-  - docker build preedalakshmi/multi-client ./client
-  - docker build preedalakshmi/multi-ngnix ./ngnix
-  - docker build preedalakshmi/multi-server ./server
-  - docker build preedalakshmi/multi-worker ./worker
+  - docker build -t preedalakshmi/multi-client ./client
+  - docker build -t preedalakshmi/multi-ngnix ./ngnix
+  - docker build -t preedalakshmi/multi-server ./server
+  - docker build -t preedalakshmi/multi-worker ./worker
         #login into docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push preedalakshmi/multi-client
